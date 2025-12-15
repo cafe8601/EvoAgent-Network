@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HAES - Hybrid AI Evolution System</title>
+    <meta name="description" content="94개 AI Research SKILL + 449개 전문 에이전트 통합 시스템">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* ===================================
+           DESIGN TOKENS - PREMIUM FUTURISTIC
+           =================================== */
+
+        :root {
+            /* Tier 1: Core Colors */
+            --bg-deep: #030305;
+            --bg-subtle: #0a0a0f;
+            --white: #ffffff;
+            --black: #000000;
+
+            /* Accents (Neon & Glow) */
+            --violet-500: #8b5cf6;
+            --violet-600: #7c3aed;
+            --emerald-500: #10b981;
+            --cyan-400: #22d3ee;
+            --rose-500: #f43f5e;
+
+            /* Tier 2: Semantic */
+            --color-bg-app: var(--bg-deep);
+            --color-bg-sidebar: rgba(10, 10, 15, 0.6);
+            --color-bg-surface: rgba(255, 255, 255, 0.03);
+            --color-bg-surface-hover: rgba(255, 255, 255, 0.06);
+
+            --color-border: rgba(255, 255, 255, 0.06);
+            --color-border-hover: rgba(255, 255, 255, 0.12);
+
+            --color-text-primary: #ededef;
+            --color-text-secondary: #a1a1aa;
+            --color-text-tertiary: #71717a;
+
+            --color-accent-primary: var(--violet-500);
+            --color-accent-secondary: var(--emerald-500);
+
+            /* Tier 3: Component */
+            --glass-blur: blur(20px);
+            --sidebar-width: 280px;
+            --chat-max-width: 800px;
+            --header-height: 60px;
+
+            /* Spacing 8pt Grid */
+            --space-1: 4px;
+            --space-2: 8px;
+            --space-3: 12px;
+            --space-4: 16px;
+            --space-6: 24px;
+            --space-8: 32px;
+            --space-10: 40px;
+            --space-12: 48px;
+            --space-20: 80px;
+
+            /* Radius */
+            --radius-sm: 6px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            --radius-full: 9999px;
+
+            /* Shadows & Glows */
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+            --glow-primary: 0 0 20px rgba(139, 92, 246, 0.15);
+            --glow-text: 0 0 10px rgba(139, 92, 246, 0.4);
+        }
+
+        /* ===================================
+           RESET & BASE
+           =================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--color-bg-app);
+            color: var(--color-text-primary);
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            background-image:
+                radial-gradient(circle at 0% 0%, rgba(139, 92, 246, 0.08), transparent 40%),
+                radial-gradient(circle at 100% 100%, rgba(16, 185, 129, 0.08), transparent 40%);
+        }
+
+        .app {
+            display: flex;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-full);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Typography */
+        h1,
+        h2,
+        h3 {
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* ===================================
+           SIDEBAR (Glassmorphism)
+           =================================== */
+
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--color-bg-sidebar);
+            backdrop-filter: var(--glass-blur);
+            border-right: 1px solid var(--color-border);
+            display: flex;
+            flex-direction: column;
+            padding: var(--space-6);
+            gap: var(--space-6);
+            z-index: 10;
+        }
+
+        /* Branding */
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            padding: var(--space-2) 0;
+            margin-bottom: var(--space-2);
+        }
+
+        .brand-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--violet-500), var(--cyan-400));
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: white;
+            box-shadow: var(--glow-primary);
+        }
+
+        .brand-text {
+            font-size: 1.25rem;
+            font-weight: 700;
+            background: linear-gradient(to right, white, var(--color-text-secondary));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* New Chat Button */
+        .btn-new-chat {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
+            border: 1px solid var(--color-border);
+            color: var(--color-text-primary);
+            padding: var(--space-3) var(--space-4);
+            border-radius: var(--radius-lg);
+            cursor: pointer;
+            font-size: 0.9375rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .btn-new-chat:hover {
+            border-color: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Stats */
+        .stats-section {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-4);
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        /* Sidebar Widgets */
+        .sidebar-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            padding-top: 12px;
+        }
+
+        .widget-title {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-text-tertiary);
+            font-weight: 700;
+            margin-bottom: 12px;
+            padding-left: 4px;
+        }
+
+        /* Stat Grid */
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .stat-card {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 16px 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 6px;
+            transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--color-accent-primary), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .stat-card:hover::before {
+            opacity: 1;
+        }
+
+        .stat-icon {
+            font-size: 1.5rem;
+            margin-bottom: 2px;
+            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.1));
+        }
+
+        .stat-value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--white);
+            letter-spacing: -0.02em;
+        }
+
+        .stat-label {
+            font-size: 0.7rem;
+            color: var(--color-text-secondary);
+            font-weight: 500;
+        }
+
+        /* Memory List */
+        .memory-container {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .memory-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            transition: background 0.2s;
+        }
+
+        .memory-row:last-child {
+            border-bottom: none;
+        }
+
+        .memory-row:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .mem-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .mem-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            box-shadow: 0 0 10px currentColor;
+        }
+
+        .mem-name {
+            font-size: 0.85rem;
+            color: var(--color-text-secondary);
+            font-weight: 500;
+        }
+
+        .mem-val {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--color-text-primary);
+            opacity: 0.9;
+        }
+
+        .feature-badge {
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            color: #c4b5fd;
+            padding: 4px 10px;
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Sidebar Footer */
+        .sidebar-footer {
+            padding-top: var(--space-4);
+            border-top: 1px solid var(--color-border);
+        }
+
+        .model-selector {
+            display: flex;
+            align-items: center;
+            gap: var(--space-3);
+            padding: var(--space-2) var(--space-3);
+            background: var(--color-bg-surface);
+            border-radius: var(--radius-md);
+            font-size: 0.8125rem;
+            color: var(--color-text-secondary);
+        }
+
+        .model-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--emerald-500);
+            box-shadow: 0 0 8px rgba(16, 185, 129, 0.4);
+        }
+
+        /* ===================================
+           MAIN CHAT (Modern Layout)
+           =================================== */
+
+        .main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .chat-container {
+            flex: 1;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+            padding-bottom: 120px;
+            /* Space for input */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-wrapper {
+            max-width: var(--chat-max-width);
+            width: 100%;
+            margin: 0 auto;
+            padding: var(--space-8) var(--space-6);
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Welcome Screen */
+        /* Welcome Screen */
+        .welcome-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding-bottom: 20vh;
+            z-index: 0;
+        }
+
+        .welcome-icon {
+            font-size: 4rem;
+            margin-bottom: var(--space-6);
+            filter: drop-shadow(0 0 30px rgba(139, 92, 246, 0.3));
+        }
+
+        .welcome-title {
+            font-size: 2.5rem;
+            margin-bottom: var(--space-4);
+            background: linear-gradient(to bottom right, #fff, #94a3b8);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .welcome-desc {
+            font-size: 1.125rem;
+            color: var(--color-text-secondary);
+            margin-bottom: var(--space-10);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+
+        /* Starter Grid */
+        .starter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: var(--space-4);
+            text-align: left;
+            width: 100%;
+            max-width: 800px;
+            /* 중앙 정렬을 위한 최대 너비 제한 */
+            margin: 0 auto;
+        }
+
+        .starter-card {
+            background: var(--color-bg-surface);
+            border: 1px solid var(--color-border);
+            padding: var(--space-6);
+            border-radius: var(--radius-lg);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .starter-card:hover {
+            border-color: var(--color-accent-primary);
+            background: var(--color-bg-surface-hover);
+            transform: translateY(-2px);
+            box-shadow: var(--glow-primary);
+        }
+
+        .starter-card h3 {
+            font-size: 1rem;
+            color: var(--color-text-primary);
+            margin-bottom: var(--space-2);
+            display: flex;
+            align-items: center;
+            gap: var(--space-2);
+        }
+
+        .starter-card p {
+            font-size: 0.875rem;
+            color: var(--color-text-secondary);
+            line-height: 1.5;
+        }
+
+        /* Messages */
+        .messages {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-6);
+            width: 100%;
+        }
+
+        .message {
+            display: flex;
+            gap: var(--space-4);
+            margin-bottom: var(--space-8);
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        .message-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .message-avatar.user {
+            background: var(--color-bg-surface);
+            border: 1px solid var(--color-border);
+            color: var(--color-text-secondary);
+        }
+
+        .message-avatar.assistant {
+            background: linear-gradient(135deg, var(--violet-500), var(--violet-600));
+            color: white;
+            box-shadow: var(--glow-primary);
+        }
+
+        .message-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .message-role {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            margin-bottom: var(--space-2);
+        }
+
+        .message-text {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: var(--color-text-primary);
+        }
+
+        .message-text p {
+            margin-bottom: var(--space-4);
+        }
+
+        .message-text p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Code Blocks */
+        .message-text pre {
+            background: #0d0d12;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-4);
+            margin: var(--space-4) 0;
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.875rem;
+        }
+
+        .message-text code {
+            font-family: 'JetBrains Mono', monospace;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 0.2em 0.4em;
+            border-radius: 4px;
+            font-size: 0.9em;
+            color: #e2e8f0;
+        }
+
+        .message-text pre code {
+            background: transparent;
+            padding: 0;
+            border-radius: 0;
+            color: inherit;
+        }
+
+        .message-text ul,
+        .message-text ol {
+            margin-left: 1.5rem;
+            margin-bottom: var(--space-4);
+        }
+
+        .message-text strong {
+            color: var(--cyan-400);
+            font-weight: 600;
+        }
+
+        /* New Metadata Design */
+        .message-meta {
+            margin-top: var(--space-4);
+            padding-top: var(--space-3);
+            border-top: 1px solid var(--color-border);
+            display: flex;
+            align-items: center;
+            gap: var(--space-4);
+            font-size: 0.75rem;
+            color: var(--color-text-secondary);
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .meta-item.skill {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--emerald-500);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        /* Feedback Buttons */
+        .feedback-actions {
+            display: flex;
+            gap: var(--space-2);
+            margin-left: auto;
+        }
+
+        .feedback-btn {
+            background: transparent;
+            border: 1px solid transparent;
+            color: var(--color-text-secondary);
+            width: 28px;
+            height: 28px;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .feedback-btn:hover {
+            background: var(--color-bg-surface-hover);
+            color: var(--color-text-primary);
+        }
+
+        .feedback-btn.active {
+            color: var(--violet-500);
+            background: rgba(139, 92, 246, 0.1);
+            border-color: rgba(139, 92, 246, 0.2);
+        }
+
+        /* ===================================
+           INPUT AREA (Floating)
+           =================================== */
+
+        .input-area {
+            position: fixed;
+            bottom: 0;
+            left: var(--sidebar-width);
+            right: 0;
+            padding: var(--space-6);
+            background: linear-gradient(to top, var(--bg-deep) 60%, transparent);
+            z-index: 20;
+        }
+
+        .input-wrapper {
+            max-width: var(--chat-max-width);
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .input-container {
+            background: rgba(20, 20, 25, 0.7);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-xl);
+            padding: 12px 16px;
+            /* Reduced vertical padding */
+            display: flex;
+            align-items: center;
+            /* Center align items vertically */
+            gap: var(--space-3);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            transition: all 0.2s ease;
+        }
+
+        .input-container:focus-within {
+            border-color: rgba(139, 92, 246, 0.3);
+            box-shadow: 0 0 0 1px rgba(139, 92, 246, 0.1), 0 8px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .input-field {
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: var(--color-text-primary);
+            font-size: 1rem;
+            line-height: 1.5;
+            resize: none;
+            max-height: 200px;
+            font-family: inherit;
+            /* 사용자 요청 반영 */
+            text-align: left;
+            padding: 4px 0;
+            /* Add slight padding for comfort */
+        }
+
+        .input-field::placeholder {
+            color: var(--color-text-tertiary);
+            text-align: left;
+        }
+
+        .send-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: var(--color-text-primary);
+            color: var(--bg-deep);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            opacity: 0.8;
+            flex-shrink: 0;
+            /* Prevent shrinking */
+        }
+
+        .send-btn:hover:not(:disabled) {
+            opacity: 1;
+            transform: scale(1.05);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
+
+        .send-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .input-footer {
+            text-align: center;
+            margin-top: var(--space-3);
+            font-size: 0.75rem;
+            color: var(--color-text-tertiary);
+        }
+
+        /* Animations */
+        @keyframes fadeSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .sidebar {
+                display: none;
+            }
+
+            .input-area {
+                left: 0;
+            }
+
+            .welcome-screen {
+                left: 0;
+            }
+        }
+
+        /* ===================================
+           ACCESSIBILITY
+           =================================== */
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        :focus-visible {
+            outline: 2px solid var(--color-accent);
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <div class="logo-icon">⚡</div>
+                    <div class="logo-text">
+                        <h1>HAES</h1>
+                        <span>Hybrid AI Evolution System</span>
+                    </div>
+                </div>
+                <button class="new-chat-btn" onclick="startNewChat()">
+                    <span>+</span> 새 대화
+                </button>
+            </div>
+
+            <!-- Sidebar Widgets -->
+            <div class="sidebar-content">
+                <!-- Status Grid -->
+                <div class="widget-group">
+                    <div class="widget-title">System Status</div>
+                    <div class="stat-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">📚</div>
+                            <div class="stat-value" id="skill-count">-</div>
+                            <div class="stat-label">Skills</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">🤖</div>
+                            <div class="stat-value" id="agent-count">-</div>
+                            <div class="stat-label">Agents</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">⭐</div>
+                            <div class="stat-value" id="pattern-count">-</div>
+                            <div class="stat-label">Patterns</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">⚡</div>
+                            <div class="stat-value">ON</div>
+                            <div class="stat-label">System</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Memory Widget -->
+                <div class="widget-group">
+                    <div class="widget-title">Memory Layer</div>
+                    <div class="memory-container">
+                        <div class="memory-row">
+                            <div class="mem-left">
+                                <div class="mem-indicator" style="background: var(--cyan-400); color: var(--cyan-400);">
+                                </div>
+                                <span class="mem-name">Session</span>
+                            </div>
+                            <span class="mem-val" id="session-memory">0</span>
+                        </div>
+                        <div class="memory-row">
+                            <div class="mem-left">
+                                <div class="mem-indicator"
+                                    style="background: var(--violet-500); color: var(--violet-500);"></div>
+                                <span class="mem-name">Short-term</span>
+                            </div>
+                            <span class="mem-val" id="short-memory">0</span>
+                        </div>
+                        <div class="memory-row">
+                            <div class="mem-left">
+                                <div class="mem-indicator"
+                                    style="background: var(--emerald-500); color: var(--emerald-500);"></div>
+                                <span class="mem-name">Long-term</span>
+                            </div>
+                            <span class="mem-val" id="long-memory">0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="model-selector">
+                    <div class="model-dot"></div>
+                    <span class="model-name">
+                        단순 질문: <strong>gpt-5-mini</strong>
+                    </span>
+                </div>
+                <div class="model-selector" style="margin-top: var(--space-2);">
+                    <div class="model-dot" style="background: var(--violet-500);"></div>
+                    <span class="model-name">
+                        복잡 질문: <strong>gpt-5.1</strong>
+                    </span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main">
+            <!-- Welcome Screen (Moved outside chat-wrapper) -->
+            <div class="welcome-screen" id="welcome-screen">
+                <div class="welcome-icon">⚡</div>
+                <h2 class="welcome-title">무엇을 도와드릴까요?</h2>
+                <p class="welcome-desc">
+                    94개 AI Research SKILL과 449개 전문 에이전트가 준비되어 있습니다
+                </p>
+
+                <div class="starter-grid">
+                    <div class="starter-card" onclick="sendQuery('LoRA 파인튜닝 방법 알려줘')">
+                        <h3>🎯 LoRA 파인튜닝</h3>
+                        <p>대형 모델 효율적 미세조정</p>
+                    </div>
+                    <div class="starter-card" onclick="sendQuery('GPT-5 최신 뉴스 검색해줘')">
+                        <h3>🔍 실시간 검색</h3>
+                        <p>최신 AI 뉴스 검색</p>
+                    </div>
+                    <div class="starter-card" onclick="sendQuery('RAG 시스템 구축 방법')">
+                        <h3>📚 RAG 시스템</h3>
+                        <p>검색 증강 생성 구현</p>
+                    </div>
+                    <div class="starter-card" onclick="sendQuery('LangChain 에이전트 만들기')">
+                        <h3>🤖 AI 에이전트</h3>
+                        <p>자율 에이전트 개발</p>
+                    </div>
+                </div>
+            </div>
+            <div class="chat-container" id="chat-container">
+                <div class="chat-wrapper">
+                    <!-- Messages will be injected here -->
+                    <div class="messages" id="messages" style="display: none;"></div>
+                </div>
+            </div>
+
+            <!-- Input Area -->
+            <div class="input-area">
+                <div class="input-wrapper">
+                    <div class="input-container">
+                        <textarea class="input-field" id="input-field" placeholder="메시지를 입력하세요..." rows="1"
+                            onkeydown="handleKeyDown(event)" oninput="autoResize(this)"></textarea>
+                        <button class="send-btn" id="send-btn" onclick="sendMessage()">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M22 2L11 13M22 2L15 22L11 13M22 2L2 9L11 13" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="input-footer">
+                        <span class="input-hint">Enter로 전송 • Shift+Enter로 줄바꿈</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:8000';
+        let conversationStarted = false;
+
+        // Initialize
+        async function init() {
+            await loadStats();
+            await checkHealth();
+        }
+
+        // Load Stats
+        async function loadStats() {
+            try {
+                const res = await fetch(`${API_URL}/stats`);
+                const data = await res.json();
+
+                document.getElementById('skill-count').textContent = data.skills_indexed;
+                document.getElementById('agent-count').textContent = data.agents_loaded;
+                document.getElementById('pattern-count').textContent = data.learned_patterns;
+                document.getElementById('session-memory').textContent = data.session_memory;
+                document.getElementById('short-memory').textContent = data.short_term_memory;
+                document.getElementById('long-memory').textContent = data.long_term_memory;
+            } catch (e) {
+                console.error('Stats error:', e);
+            }
+        }
+
+        // Health Check
+        async function checkHealth() {
+            try {
+                const res = await fetch(`${API_URL}/health`);
+                const data = await res.json();
+                document.getElementById('routing-model').textContent = data.models.routing;
+                document.getElementById('main-model').textContent = data.models.main;
+            } catch (e) {
+                console.error('Health error:', e);
+            }
+        }
+
+        // Send Query (from starter cards)
+        function sendQuery(query) {
+            document.getElementById('input-field').value = query;
+            sendMessage();
+        }
+
+        // Send Message
+        async function sendMessage() {
+            const input = document.getElementById('input-field');
+            const query = input.value.trim();
+            if (!query) return;
+
+            const sendBtn = document.getElementById('send-btn');
+            sendBtn.disabled = true;
+            input.value = '';
+            autoResize(input);
+
+            // Hide welcome, show messages
+            if (!conversationStarted) {
+                document.getElementById('welcome-screen').style.display = 'none';
+                document.getElementById('messages').style.display = 'flex';
+                conversationStarted = true;
+            }
+
+            // Add user message
+            addMessage('user', query);
+
+            // Add loading
+            const loadingId = addLoading();
+
+            try {
+                const res = await fetch(`${API_URL}/chat`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ query })
+                });
+                const data = await res.json();
+
+                removeLoading(loadingId);
+                addMessage('assistant', data.response, {
+                    mode: data.mode,
+                    skills: data.skills_used,
+                    time: data.execution_time
+                });
+
+                loadStats();
+            } catch (e) {
+                removeLoading(loadingId);
+                addMessage('assistant', '오류가 발생했습니다. 다시 시도해주세요.');
+            }
+
+            sendBtn.disabled = false;
+            input.focus();
+        }
+
+        // Add Message
+        function addMessage(role, content, meta = null) {
+            const container = document.getElementById('messages');
+
+            let html = formatMarkdown(content);
+
+            let metaHtml = '';
+            if (meta) {
+                const skills = meta.skills.map(s =>
+                    `<span class="meta-item skill">${s}</span>`
+                ).join('');
+
+                metaHtml = `
+                    <div class="message-meta">
+                        <span class="meta-item">🏷️ ${meta.mode}</span>
+                        ${skills}
+                        <span class="meta-item">⏱️ ${meta.time ? meta.time.toFixed(1) : '?'}s</span>
+                        
+                        <div class="feedback-actions">
+                            <button class="feedback-btn" onclick="sendFeedback(this, 5)" title="좋아요 (기억 강화)">👍</button>
+                            <button class="feedback-btn" onclick="sendFeedback(this, 1)" title="싫어요">👎</button>
+                        </div>
+                    </div>
+                `;
+            }
+
+            const messageHtml = `
+                <div class="message">
+                    <div class="message-avatar ${role}">
+                        ${role === 'user' ? '👤' : '⚡'}
+                    </div>
+                    <div class="message-content">
+                        <div class="message-role">${role === 'user' ? '나' : 'HAES'}</div>
+                        <div class="message-text">${html}</div>
+                        ${metaHtml}
+                    </div>
+                </div>
+            `;
+
+            container.insertAdjacentHTML('beforeend', messageHtml);
+            scrollToBottom();
+        }
+
+        // Add Loading
+        function addLoading() {
+            const id = 'loading-' + Date.now();
+            const container = document.getElementById('messages');
+
+            container.insertAdjacentHTML('beforeend', `
+                <div class="message" id="${id}">
+                    <div class="message-avatar assistant">⚡</div>
+                    <div class="message-content">
+                        <div class="message-role">HAES</div>
+                        <div class="loading-dots">
+                            <span></span><span></span><span></span>
+                        </div>
+                    </div>
+                </div>
+            `);
+
+            scrollToBottom();
+            return id;
+        }
+
+        // Remove Loading
+        function removeLoading(id) {
+            const el = document.getElementById(id);
+            if (el) el.remove();
+        }
+
+        // Format Markdown
+        function formatMarkdown(text) {
+            return text
+                .replace(/```(\w*)\n([\s\S]*?)```/g, '<pre><code>$2</code></pre>')
+                .replace(/`([^`]+)`/g, '<code>$1</code>')
+                .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+                .replace(/^### (.+)$/gm, '<h3>$1</h3>')
+                .replace(/^## (.+)$/gm, '<h2>$1</h2>')
+                .replace(/^- (.+)$/gm, '<li>$1</li>')
+                .replace(/\n\n/g, '</p><p>')
+                .replace(/\n/g, '<br>')
+                .replace(/^(.+)$/gm, '<p>$1</p>')
+                .replace(/<p><\/p>/g, '')
+                .replace(/<p>(<h[23]>)/g, '$1')
+                .replace(/(<\/h[23]>)<\/p>/g, '$1');
+        }
+
+        // Scroll to Bottom
+        function scrollToBottom() {
+            const container = document.getElementById('chat-container');
+            container.scrollTop = container.scrollHeight;
+        }
+
+        // Handle Key Down
+        function handleKeyDown(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        }
+
+        // Auto Resize
+        function autoResize(el) {
+            el.style.height = 'auto';
+            el.style.height = Math.min(el.scrollHeight, 200) + 'px';
+        }
+
+        // Start New Chat
+        function startNewChat() {
+            document.getElementById('messages').innerHTML = '';
+            document.getElementById('messages').style.display = 'none';
+            document.getElementById('welcome-screen').style.display = 'block';
+            conversationStarted = false;
+
+            fetch(`${API_URL}/history`, { method: 'DELETE' });
+        }
+
+        // Send Feedback
+        async function sendFeedback(btn, score) {
+            // 시각적 효과
+            const actions = btn.parentElement;
+            const buttons = actions.querySelectorAll('.feedback-btn');
+            buttons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            try {
+                // API 호출
+                const res = await fetch(`${API_URL}/feedback`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        score: score,
+                        comment: score >= 4 ? "User Feedback: Like" : "User Feedback: Dislike"
+                    })
+                });
+
+                // 통계 갱신 (장기 기억 승격 확인용)
+                setTimeout(loadStats, 500);
+
+            } catch (e) {
+                console.error('Feedback failed:', e);
+                alert('피드백 전송에 실패했습니다.');
+            }
+        }
+
+        // Initialize
+        init();
+    </script>
+</body>
+
+</html>

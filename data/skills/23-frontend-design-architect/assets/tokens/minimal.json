@@ -1,0 +1,56 @@
+{
+  "meta": {
+    "name": "minimal",
+    "displayName": "Minimal Token Set",
+    "description": "Lightweight token set for MVPs and personal projects",
+    "tokenCount": 18,
+    "useCase": ["personal-sites", "mvp", "landing-pages", "prototypes"]
+  },
+  "color": {
+    "primitives": {
+      "white": "#FFFFFF",
+      "black": "#1A1A1A",
+      "gray": "#6B7280",
+      "primary": "#3B82F6",
+      "success": "#22C55E",
+      "error": "#EF4444"
+    },
+    "semantic": {
+      "background": "var(--color-white)",
+      "foreground": "var(--color-black)",
+      "muted": "var(--color-gray)",
+      "accent": "var(--color-primary)"
+    }
+  },
+  "spacing": {
+    "xs": "0.25rem",
+    "sm": "0.5rem",
+    "md": "1rem",
+    "lg": "1.5rem",
+    "xl": "2rem",
+    "2xl": "4rem"
+  },
+  "typography": {
+    "fontFamily": {
+      "sans": "system-ui, -apple-system, sans-serif",
+      "mono": "ui-monospace, monospace"
+    },
+    "fontSize": {
+      "sm": "0.875rem",
+      "base": "1rem",
+      "lg": "1.25rem",
+      "xl": "1.5rem",
+      "2xl": "2rem"
+    }
+  },
+  "radius": {
+    "sm": "0.25rem",
+    "md": "0.5rem",
+    "full": "9999px"
+  },
+  "shadow": {
+    "sm": "0 1px 2px rgba(0,0,0,0.05)",
+    "md": "0 4px 6px rgba(0,0,0,0.1)"
+  },
+  "cssVariables": ":root {\n  /* Colors */\n  --color-white: #FFFFFF;\n  --color-black: #1A1A1A;\n  --color-gray: #6B7280;\n  --color-primary: #3B82F6;\n  --color-success: #22C55E;\n  --color-error: #EF4444;\n\n  /* Semantic */\n  --bg: var(--color-white);\n  --fg: var(--color-black);\n  --muted: var(--color-gray);\n  --accent: var(--color-primary);\n\n  /* Spacing */\n  --space-xs: 0.25rem;\n  --space-sm: 0.5rem;\n  --space-md: 1rem;\n  --space-lg: 1.5rem;\n  --space-xl: 2rem;\n  --space-2xl: 4rem;\n\n  /* Typography */\n  --font-sans: system-ui, -apple-system, sans-serif;\n  --font-mono: ui-monospace, monospace;\n  --text-sm: 0.875rem;\n  --text-base: 1rem;\n  --text-lg: 1.25rem;\n  --text-xl: 1.5rem;\n  --text-2xl: 2rem;\n\n  /* Radius */\n  --radius-sm: 0.25rem;\n  --radius-md: 0.5rem;\n  --radius-full: 9999px;\n\n  /* Shadow */\n  --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);\n  --shadow-md: 0 4px 6px rgba(0,0,0,0.1);\n}"
+}

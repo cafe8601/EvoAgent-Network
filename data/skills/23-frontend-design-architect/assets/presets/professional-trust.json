@@ -1,0 +1,200 @@
+{
+  "meta": {
+    "name": "professional-trust",
+    "displayName": "Professional & Trustworthy",
+    "description": "Conservative, reliable design that builds confidence. Balanced layouts with traditional typography.",
+    "aestheticDirection": "Editorial Professional",
+    "mood": ["trustworthy", "established", "reliable", "professional", "secure"],
+    "industries": ["finance", "legal", "insurance", "enterprise", "government", "healthcare"],
+    "avoidPatterns": ["trendy effects", "playful colors", "experimental layouts", "casual typography"],
+    "memorableMoment": "Authoritative serif headlines paired with clean data visualization and subtle credibility badges"
+  },
+  "color": {
+    "brand": {
+      "primary": {
+        "value": "hsl(217, 91%, 30%)",
+        "hex": "#1E3A8A",
+        "name": "Corporate Blue"
+      },
+      "secondary": {
+        "value": "hsl(217, 33%, 17%)",
+        "hex": "#1F2937",
+        "name": "Slate"
+      },
+      "accent": {
+        "value": "hsl(142, 71%, 35%)",
+        "hex": "#16A34A",
+        "name": "Trust Green"
+      }
+    },
+    "background": {
+      "primary": {
+        "value": "hsl(0, 0%, 100%)",
+        "hex": "#FFFFFF",
+        "name": "White"
+      },
+      "secondary": {
+        "value": "hsl(210, 40%, 98%)",
+        "hex": "#F8FAFC",
+        "name": "Soft Blue White"
+      },
+      "tertiary": {
+        "value": "hsl(210, 40%, 96%)",
+        "hex": "#F1F5F9",
+        "name": "Light Slate"
+      }
+    },
+    "text": {
+      "primary": {
+        "value": "hsl(222, 47%, 11%)",
+        "hex": "#1E293B",
+        "name": "Dark Slate"
+      },
+      "secondary": {
+        "value": "hsl(215, 16%, 47%)",
+        "hex": "#64748B",
+        "name": "Medium Slate"
+      },
+      "tertiary": {
+        "value": "hsl(215, 20%, 65%)",
+        "hex": "#94A3B8",
+        "name": "Light Slate"
+      }
+    },
+    "semantic": {
+      "success": "#16A34A",
+      "warning": "#CA8A04",
+      "error": "#DC2626",
+      "info": "#0284C7"
+    }
+  },
+  "typography": {
+    "fontFamily": {
+      "display": {
+        "value": "'Source Serif 4', Georgia, serif",
+        "googleFonts": "https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;600;700&display=swap"
+      },
+      "body": {
+        "value": "'Source Sans 3', -apple-system, sans-serif",
+        "googleFonts": "https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600&display=swap"
+      },
+      "mono": {
+        "value": "'Source Code Pro', monospace",
+        "googleFonts": "https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;500&display=swap"
+      }
+    },
+    "fontSize": {
+      "hero": { "value": "clamp(2.5rem, 5vw, 4rem)" },
+      "h1": { "value": "clamp(2rem, 4vw, 3rem)" },
+      "h2": { "value": "clamp(1.5rem, 3vw, 2rem)" },
+      "h3": { "value": "clamp(1.25rem, 2vw, 1.5rem)" },
+      "h4": { "value": "1.125rem" },
+      "body": { "value": "1rem" },
+      "small": { "value": "0.875rem" }
+    },
+    "fontWeight": {
+      "normal": "400",
+      "medium": "500",
+      "semibold": "600",
+      "bold": "700"
+    },
+    "lineHeight": {
+      "heading": "1.3",
+      "body": "1.6",
+      "relaxed": "1.8"
+    },
+    "letterSpacing": {
+      "heading": "-0.01em",
+      "body": "0",
+      "caps": "0.05em"
+    }
+  },
+  "spacing": {
+    "section": { "value": "clamp(4rem, 8vw, 6rem)" },
+    "component": { "value": "clamp(2rem, 4vw, 3rem)" },
+    "element": { "value": "1rem" }
+  },
+  "border": {
+    "width": { "default": "1px" },
+    "radius": {
+      "sm": "0.25rem",
+      "md": "0.375rem",
+      "lg": "0.5rem"
+    },
+    "color": {
+      "default": "#E2E8F0",
+      "strong": "#CBD5E1"
+    }
+  },
+  "effects": {
+    "shadow": {
+      "sm": "0 1px 2px 0 rgba(0, 0, 0, 0.05)",
+      "md": "0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)",
+      "lg": "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)"
+    }
+  },
+  "animation": {
+    "duration": {
+      "fast": "150ms",
+      "normal": "200ms",
+      "slow": "300ms"
+    },
+    "easing": {
+      "default": "ease"
+    }
+  },
+  "components": {
+    "button": {
+      "primary": {
+        "background": "#1E3A8A",
+        "color": "#FFFFFF",
+        "padding": "12px 24px",
+        "borderRadius": "0.375rem",
+        "fontWeight": "500"
+      },
+      "secondary": {
+        "background": "#FFFFFF",
+        "color": "#1E3A8A",
+        "border": "1px solid #1E3A8A",
+        "padding": "12px 24px"
+      },
+      "tertiary": {
+        "background": "transparent",
+        "color": "#1E3A8A",
+        "textDecoration": "underline"
+      }
+    },
+    "card": {
+      "background": "#FFFFFF",
+      "border": "1px solid #E2E8F0",
+      "borderRadius": "0.5rem",
+      "padding": "1.5rem",
+      "shadow": "0 1px 2px 0 rgba(0, 0, 0, 0.05)"
+    },
+    "input": {
+      "background": "#FFFFFF",
+      "border": "1px solid #CBD5E1",
+      "borderRadius": "0.375rem",
+      "padding": "10px 14px",
+      "focusBorder": "#1E3A8A"
+    },
+    "table": {
+      "headerBackground": "#F8FAFC",
+      "rowBorder": "#E2E8F0",
+      "hoverBackground": "#F1F5F9"
+    }
+  },
+  "backgrounds": {
+    "default": "#FFFFFF",
+    "subtle": "linear-gradient(180deg, #F8FAFC 0%, #FFFFFF 100%)"
+  },
+  "designPrinciples": [
+    "Clarity over creativity - information is king",
+    "Consistent, predictable patterns build trust",
+    "Serif headings + sans-serif body = traditional authority",
+    "Blue conveys trust and stability",
+    "Subtle animations - nothing distracting",
+    "Plenty of white space for easy scanning",
+    "Tables and data should be easy to read"
+  ]
+}

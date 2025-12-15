@@ -1,0 +1,235 @@
+{
+    "name": "Premium Landing Page",
+    "description": "프리미엄 랜딩 페이지용 프리셋 - AI 생성처럼 보이지 않는 정교한 디자인",
+    "aestheticDirection": "Minimal Modern with Asymmetric Sophistication",
+    "philosophy": "절제와 의도성. 더 적은 것이 더 많다.",
+    "typography": {
+        "displayFont": {
+            "options": [
+                "Space Grotesk",
+                "Clash Display",
+                "Cabinet Grotesk",
+                "Syne",
+                "DM Serif Display",
+                "Zodiak",
+                "Fraunces"
+            ],
+            "note": "Inter, Roboto, Arial 절대 금지"
+        },
+        "bodyFont": {
+            "options": [
+                "DM Sans",
+                "General Sans",
+                "Switzer",
+                "Geist",
+                "Manrope",
+                "Karla",
+                "Work Sans"
+            ]
+        },
+        "scale": {
+            "hero": "4rem-5rem (64-80px)",
+            "sectionTitle": "3rem-3.5rem (48-56px)",
+            "subsection": "2rem-2.5rem (32-40px)",
+            "body": "1.125rem-1.25rem (18-20px)",
+            "small": "0.875rem-1rem (14-16px)"
+        },
+        "lineHeight": {
+            "headings": 1.2,
+            "body": 1.7
+        },
+        "letterSpacing": {
+            "heroHeadline": "-0.02em to -0.04em",
+            "normal": "0"
+        }
+    },
+    "colors": {
+        "backgrounds": {
+            "primary": "#FAFAF9",
+            "primaryName": "stone-50",
+            "secondary": "#F8FAFC",
+            "secondaryName": "slate-50",
+            "contrast": "#0F172A",
+            "contrastName": "slate-900"
+        },
+        "text": {
+            "primary": "#0F172A",
+            "primaryName": "slate-900",
+            "secondary": "#475569",
+            "secondaryName": "slate-600",
+            "muted": "#94A3B8",
+            "mutedName": "slate-400"
+        },
+        "borders": {
+            "default": "#E2E8F0",
+            "defaultName": "slate-200",
+            "subtle": "#F1F5F9",
+            "subtleName": "slate-100"
+        },
+        "accent": {
+            "note": "브랜드에 맞는 단일 색상 선택",
+            "suggestions": {
+                "professional": "#2563EB (blue-600)",
+                "creative": "#7C3AED (violet-600)",
+                "growth": "#059669 (emerald-600)",
+                "energy": "#DC2626 (red-600)",
+                "warmth": "#EA580C (orange-600)"
+            }
+        },
+        "forbidden": [
+            "순백색 #FFFFFF (off-white 사용)",
+            "순흑색 #000000 (slate-900 사용)",
+            "보라-분홍 그라디언트",
+            "레인보우 팔레트"
+        ]
+    },
+    "spacing": {
+        "system": "8pt grid",
+        "values": [
+            8,
+            16,
+            24,
+            32,
+            40,
+            48,
+            64,
+            80,
+            96,
+            128
+        ],
+        "tailwindClasses": [
+            "p-2",
+            "p-4",
+            "p-6",
+            "p-8",
+            "p-10",
+            "p-12",
+            "p-16",
+            "p-20",
+            "p-24",
+            "p-32"
+        ],
+        "sections": {
+            "paddingVertical": "80-128px",
+            "tailwindClass": "py-20 lg:py-32"
+        },
+        "containers": {
+            "maxWidth": "1280px",
+            "tailwindClass": "max-w-7xl mx-auto px-6 lg:px-12"
+        },
+        "elements": {
+            "major": "24-48px",
+            "minor": "8-16px"
+        }
+    },
+    "layout": {
+        "hero": {
+            "height": "85-100vh",
+            "structure": "비대칭 60/40 그리드",
+            "textAlignment": "좌측 정렬",
+            "tailwindClass": "grid lg:grid-cols-2 gap-12 lg:gap-16 items-center"
+        },
+        "sections": {
+            "alternating": true,
+            "note": "섹션마다 레이아웃 변형"
+        },
+        "features": {
+            "columns": 3,
+            "maxItems": 6,
+            "tailwindClass": "grid md:grid-cols-3 gap-12"
+        }
+    },
+    "components": {
+        "buttons": {
+            "primary": {
+                "borderRadius": "rounded-lg (8px)",
+                "padding": "px-8 py-4",
+                "fontSize": "text-base font-semibold",
+                "shadow": "shadow-sm hover:shadow-md",
+                "transition": "transition-all duration-150"
+            },
+            "secondary": {
+                "borderRadius": "rounded-lg",
+                "padding": "px-8 py-4",
+                "border": "border-2 border-slate-300",
+                "hover": "hover:border-slate-400"
+            },
+            "forbidden": [
+                "rounded-full (pill)",
+                "그라디언트 배경"
+            ]
+        },
+        "cards": {
+            "borderRadius": "rounded-xl",
+            "padding": "p-8",
+            "border": "border border-slate-200",
+            "shadow": "shadow-sm 또는 없음",
+            "hover": "hover:shadow-md hover:-translate-y-1 transition-all"
+        },
+        "testimonials": {
+            "layout": "정적 그리드 (캐러셀 금지)",
+            "count": "3-4개",
+            "structure": "별점 + 인용 + 프로필"
+        }
+    },
+    "motion": {
+        "pageLoad": {
+            "type": "스태거드 fade-in",
+            "delays": [
+                "0ms",
+                "100ms",
+                "200ms",
+                "300ms",
+                "400ms"
+            ],
+            "duration": "600ms",
+            "easing": "ease-out"
+        },
+        "hover": {
+            "buttons": "translateY(-1px) + shadow 확장",
+            "cards": "translateY(-4px) + shadow 확장",
+            "duration": "150-200ms"
+        },
+        "scroll": {
+            "type": "fade-up on viewport enter",
+            "trigger": "Intersection Observer"
+        },
+        "forbidden": [
+            "과도한 애니메이션",
+            "모든 곳에 bounce",
+            "자동 재생 배경 비디오"
+        ]
+    },
+    "antiPatterns": [
+        "The Gradient Epidemic - 그라디언트 남용",
+        "Everything-Centered Syndrome - 모두 가운데 정렬",
+        "Rainbow Catastrophe - 레인보우 색상",
+        "Stock Photo Disaster - 스톡 사진",
+        "Feature-Dumping Problem - 기능 나열",
+        "Pill Button Plague - pill 버튼",
+        "Busy Background Nightmare - 바쁜 배경",
+        "Typography Chaos - 타이포 혼란",
+        "CTA Apocalypse - CTA 과다",
+        "Shadow Overload - 그림자 과다"
+    ],
+    "humanTouch": [
+        "의도적 비대칭 - 완벽한 대칭 회피",
+        "미세 불완전성 - 시스템 내 약간의 오프셋",
+        "절제 - 가능한 모든 것을 사용하지 않음",
+        "디테일 - 커스텀 아이콘, 구체적 숫자",
+        "맥락 - 브랜드에 맞는 선택"
+    ],
+    "essentialElements": [
+        "1. URL with Keywords - SEO 최적화 URL",
+        "2. Company Logo - 좌상단 로고",
+        "3. Title + Subtitle - 가치 제안 헤드라인",
+        "4. Primary CTA - 주요 전환 버튼",
+        "5. Social Proof - 사회적 증거",
+        "6. Images/Videos - 제품 시각화",
+        "7. Benefits/Features - 3-6개 핵심 혜택",
+        "8. Testimonials - 고객 후기",
+        "9. FAQ - 자주 묻는 질문",
+        "10. Final CTA - 최종 전환 섹션",
+        "11. Footer - 연락처/법적 정보"
+    ]
+}

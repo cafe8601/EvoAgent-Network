@@ -1,0 +1,206 @@
+{
+  "meta": {
+    "name": "bold-expressive",
+    "displayName": "Bold & Expressive",
+    "description": "High-impact design with strong colors, dramatic typography, and confident visual statements.",
+    "aestheticDirection": "Bold Expressive",
+    "mood": ["confident", "energetic", "creative", "memorable", "distinctive"],
+    "industries": ["agencies", "startups", "creative-studios", "gaming", "entertainment", "fashion"],
+    "avoidPatterns": ["neutral colors", "subtle effects", "conventional layouts", "safe typography"],
+    "memorableMoment": "Dramatic hero typography with gradient text and atmospheric glow effects"
+  },
+  "color": {
+    "brand": {
+      "primary": {
+        "value": "hsl(263, 70%, 50%)",
+        "hex": "#7C3AED",
+        "name": "Electric Violet"
+      },
+      "secondary": {
+        "value": "hsl(330, 81%, 60%)",
+        "hex": "#EC4899",
+        "name": "Hot Pink"
+      },
+      "accent": {
+        "value": "hsl(43, 96%, 56%)",
+        "hex": "#FBBF24",
+        "name": "Amber Gold"
+      }
+    },
+    "background": {
+      "primary": {
+        "value": "hsl(0, 0%, 0%)",
+        "hex": "#000000",
+        "name": "Pure Black"
+      },
+      "secondary": {
+        "value": "hsl(260, 20%, 10%)",
+        "hex": "#161122",
+        "name": "Deep Purple Black"
+      },
+      "tertiary": {
+        "value": "hsl(260, 20%, 15%)",
+        "hex": "#221D2F",
+        "name": "Soft Purple"
+      }
+    },
+    "text": {
+      "primary": {
+        "value": "hsl(0, 0%, 100%)",
+        "hex": "#FFFFFF",
+        "name": "Pure White"
+      },
+      "secondary": {
+        "value": "hsl(260, 10%, 70%)",
+        "hex": "#ADA8B8",
+        "name": "Soft Lavender"
+      },
+      "tertiary": {
+        "value": "hsl(260, 10%, 50%)",
+        "hex": "#7A7587",
+        "name": "Muted Lavender"
+      }
+    },
+    "gradient": {
+      "primary": "linear-gradient(135deg, #7C3AED 0%, #EC4899 50%, #FBBF24 100%)",
+      "subtle": "linear-gradient(180deg, rgba(124, 58, 237, 0.1) 0%, transparent 100%)"
+    }
+  },
+  "typography": {
+    "fontFamily": {
+      "display": {
+        "value": "'Clash Display', 'Space Grotesk', sans-serif",
+        "googleFonts": "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap",
+        "note": "Clash Display is premium - Space Grotesk is free alternative"
+      },
+      "body": {
+        "value": "'Inter', system-ui, sans-serif",
+        "googleFonts": "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap"
+      },
+      "mono": {
+        "value": "'Fira Code', monospace",
+        "googleFonts": "https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap"
+      }
+    },
+    "fontSize": {
+      "hero": { "value": "clamp(4rem, 12vw, 10rem)" },
+      "h1": { "value": "clamp(3rem, 8vw, 6rem)" },
+      "h2": { "value": "clamp(2rem, 5vw, 4rem)" },
+      "h3": { "value": "clamp(1.5rem, 3vw, 2rem)" },
+      "body": { "value": "1.125rem" },
+      "small": { "value": "0.875rem" }
+    },
+    "fontWeight": {
+      "normal": "400",
+      "medium": "500",
+      "semibold": "600",
+      "bold": "700"
+    },
+    "lineHeight": {
+      "tight": "0.9",
+      "normal": "1.4",
+      "relaxed": "1.6"
+    },
+    "letterSpacing": {
+      "tighter": "-0.04em",
+      "tight": "-0.02em",
+      "wide": "0.1em"
+    },
+    "textTransform": {
+      "display": "uppercase"
+    }
+  },
+  "spacing": {
+    "section": { "value": "clamp(6rem, 15vw, 12rem)" },
+    "component": { "value": "clamp(3rem, 8vw, 6rem)" },
+    "element": { "value": "2rem" }
+  },
+  "border": {
+    "width": { "default": "2px", "thick": "4px" },
+    "radius": {
+      "sm": "0.25rem",
+      "md": "0.5rem",
+      "lg": "1rem",
+      "xl": "1.5rem",
+      "full": "9999px"
+    },
+    "color": {
+      "default": "hsla(260, 20%, 30%, 0.5)",
+      "accent": "#7C3AED"
+    }
+  },
+  "effects": {
+    "shadow": {
+      "glow": "0 0 40px rgba(124, 58, 237, 0.4)",
+      "glowStrong": "0 0 80px rgba(124, 58, 237, 0.6)",
+      "glowPink": "0 0 40px rgba(236, 72, 153, 0.4)"
+    },
+    "blur": {
+      "sm": "4px",
+      "md": "12px",
+      "lg": "24px"
+    }
+  },
+  "animation": {
+    "duration": {
+      "fast": "200ms",
+      "normal": "400ms",
+      "slow": "800ms",
+      "dramatic": "1200ms"
+    },
+    "easing": {
+      "default": "cubic-bezier(0.4, 0, 0.2, 1)",
+      "bounce": "cubic-bezier(0.34, 1.56, 0.64, 1)",
+      "dramatic": "cubic-bezier(0.6, 0, 0.2, 1)"
+    }
+  },
+  "components": {
+    "button": {
+      "primary": {
+        "background": "linear-gradient(135deg, #7C3AED, #EC4899)",
+        "color": "#FFFFFF",
+        "padding": "16px 32px",
+        "borderRadius": "9999px",
+        "fontWeight": "600",
+        "textTransform": "uppercase",
+        "letterSpacing": "0.05em",
+        "boxShadow": "0 0 30px rgba(124, 58, 237, 0.4)"
+      },
+      "secondary": {
+        "background": "transparent",
+        "color": "#FFFFFF",
+        "border": "2px solid rgba(255, 255, 255, 0.3)",
+        "padding": "16px 32px",
+        "hoverBackground": "rgba(255, 255, 255, 0.1)"
+      }
+    },
+    "card": {
+      "background": "rgba(34, 29, 47, 0.8)",
+      "backdropFilter": "blur(12px)",
+      "border": "1px solid rgba(124, 58, 237, 0.3)",
+      "borderRadius": "1rem",
+      "padding": "2rem"
+    },
+    "input": {
+      "background": "rgba(0, 0, 0, 0.5)",
+      "border": "2px solid rgba(255, 255, 255, 0.2)",
+      "borderRadius": "0.5rem",
+      "padding": "16px 20px",
+      "focusBorder": "#7C3AED",
+      "focusGlow": "0 0 20px rgba(124, 58, 237, 0.3)"
+    }
+  },
+  "backgrounds": {
+    "gradient": "radial-gradient(ellipse at 30% 20%, rgba(124, 58, 237, 0.15) 0%, transparent 50%), radial-gradient(ellipse at 70% 80%, rgba(236, 72, 153, 0.1) 0%, transparent 50%), linear-gradient(180deg, #000000 0%, #161122 100%)",
+    "grid": "linear-gradient(rgba(124, 58, 237, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(124, 58, 237, 0.1) 1px, transparent 1px)",
+    "gridSize": "60px 60px"
+  },
+  "designPrinciples": [
+    "Go big or go home - headlines should stop scrolling",
+    "Color gradients create movement and energy",
+    "Glow effects add depth and premium feel",
+    "Uppercase + tight letter-spacing = power",
+    "Dark backgrounds make colors pop",
+    "Every element should feel intentional and confident"
+  ]
+}

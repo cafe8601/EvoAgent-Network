@@ -1,0 +1,396 @@
+/**
+ * Button Styles - Vanilla CSS
+ * Framework-agnostic, tokens-based with variants, sizes, and states
+ *
+ * Usage:
+ * <button class="btn btn-primary btn-md">Click me</button>
+ * <button class="btn btn-secondary btn-sm btn-loading">Loading</button>
+ * <a href="/page" class="btn btn-ghost btn-lg">Link Button</a>
+ */
+
+/* ===================
+   CSS Custom Properties (Design Tokens)
+   Import from your design system or define locally
+   =================== */
+
+:root {
+  /* Colors */
+  --btn-primary-bg: var(--color-primary-500, #3b82f6);
+  --btn-primary-bg-hover: var(--color-primary-600, #2563eb);
+  --btn-primary-bg-active: var(--color-primary-700, #1d4ed8);
+  --btn-primary-text: #ffffff;
+
+  --btn-secondary-bg: transparent;
+  --btn-secondary-bg-hover: var(--color-gray-50, #f9fafb);
+  --btn-secondary-border: var(--color-gray-300, #d1d5db);
+  --btn-secondary-border-hover: var(--color-gray-400, #9ca3af);
+  --btn-secondary-text: var(--color-gray-900, #111827);
+
+  --btn-ghost-bg: transparent;
+  --btn-ghost-bg-hover: var(--color-gray-100, #f3f4f6);
+  --btn-ghost-text: var(--color-gray-700, #374151);
+
+  --btn-danger-bg: var(--color-red-500, #ef4444);
+  --btn-danger-bg-hover: var(--color-red-600, #dc2626);
+  --btn-danger-bg-active: var(--color-red-700, #b91c1c);
+  --btn-danger-text: #ffffff;
+
+  /* Sizes */
+  --btn-sm-height: 32px;
+  --btn-sm-padding-x: 0.75rem;
+  --btn-sm-font-size: 0.8125rem;
+  --btn-sm-radius: var(--radius-md, 0.375rem);
+  --btn-sm-gap: 0.25rem;
+
+  --btn-md-height: 40px;
+  --btn-md-padding-x: 1rem;
+  --btn-md-font-size: 0.875rem;
+  --btn-md-radius: var(--radius-md, 0.375rem);
+  --btn-md-gap: 0.5rem;
+
+  --btn-lg-height: 48px;
+  --btn-lg-padding-x: 1.5rem;
+  --btn-lg-font-size: 1rem;
+  --btn-lg-radius: var(--radius-lg, 0.5rem);
+  --btn-lg-gap: 0.5rem;
+
+  /* Focus */
+  --btn-focus-ring-color: var(--color-primary-500, #3b82f6);
+  --btn-focus-ring-offset: 2px;
+  --btn-focus-ring-width: 2px;
+
+  /* Transition */
+  --btn-transition-duration: 150ms;
+  --btn-transition-timing: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ===================
+   BASE BUTTON
+   =================== */
+
+.btn {
+  /* Layout */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--btn-gap, var(--btn-md-gap));
+
+  /* Box model */
+  height: var(--btn-height, var(--btn-md-height));
+  padding: 0 var(--btn-padding-x, var(--btn-md-padding-x));
+  border: 1px solid transparent;
+  border-radius: var(--btn-radius, var(--btn-md-radius));
+
+  /* Typography */
+  font-family: var(--font-sans, system-ui, -apple-system, sans-serif);
+  font-size: var(--btn-font-size, var(--btn-md-font-size));
+  font-weight: 500;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+
+  /* Behavior */
+  cursor: pointer;
+  user-select: none;
+
+  /* Transitions */
+  transition-property: background-color, border-color, color, box-shadow, transform, opacity;
+  transition-duration: var(--btn-transition-duration);
+  transition-timing-function: var(--btn-transition-timing);
+
+  /* Reset */
+  outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+/* Focus visible - keyboard navigation */
+.btn:focus-visible {
+  outline: var(--btn-focus-ring-width) solid var(--btn-focus-ring-color);
+  outline-offset: var(--btn-focus-ring-offset);
+}
+
+/* Active press effect */
+.btn:active:not(:disabled):not(.btn-disabled):not(.btn-loading) {
+  transform: scale(0.98);
+}
+
+/* ===================
+   VARIANTS
+   =================== */
+
+/* Primary */
+.btn-primary {
+  background-color: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+  border-color: var(--btn-primary-bg);
+}
+
+.btn-primary:hover:not(:disabled):not(.btn-disabled):not(.btn-loading) {
+  background-color: var(--btn-primary-bg-hover);
+  border-color: var(--btn-primary-bg-hover);
+}
+
+.btn-primary:active:not(:disabled):not(.btn-disabled):not(.btn-loading) {
+  background-color: var(--btn-primary-bg-active);
+  border-color: var(--btn-primary-bg-active);
+}
+
+/* Secondary */
+.btn-secondary {
+  background-color: var(--btn-secondary-bg);
+  color: var(--btn-secondary-text);
+  border-color: var(--btn-secondary-border);
+}
+
+.btn-secondary:hover:not(:disabled):not(.btn-disabled):not(.btn-loading) {
+  background-color: var(--btn-secondary-bg-hover);
+  border-color: var(--btn-secondary-border-hover);
+}
+
+/* Ghost */
+.btn-ghost {
+  background-color: var(--btn-ghost-bg);
+  color: var(--btn-ghost-text);
+  border-color: transparent;
+}
+
+.btn-ghost:hover:not(:disabled):not(.btn-disabled):not(.btn-loading) {
+  background-color: var(--btn-ghost-bg-hover);
+}
+
+/* Danger */
+.btn-danger {
+  background-color: var(--btn-danger-bg);
+  color: var(--btn-danger-text);
+  border-color: var(--btn-danger-bg);
+}
+
+.btn-danger:hover:not(:disabled):not(.btn-disabled):not(.btn-loading) {
+  background-color: var(--btn-danger-bg-hover);
+  border-color: var(--btn-danger-bg-hover);
+}
+
+.btn-danger:active:not(:disabled):not(.btn-disabled):not(.btn-loading) {
+  background-color: var(--btn-danger-bg-active);
+  border-color: var(--btn-danger-bg-active);
+}
+
+/* ===================
+   SIZES
+   =================== */
+
+.btn-sm {
+  --btn-height: var(--btn-sm-height);
+  --btn-padding-x: var(--btn-sm-padding-x);
+  --btn-font-size: var(--btn-sm-font-size);
+  --btn-radius: var(--btn-sm-radius);
+  --btn-gap: var(--btn-sm-gap);
+}
+
+.btn-md {
+  --btn-height: var(--btn-md-height);
+  --btn-padding-x: var(--btn-md-padding-x);
+  --btn-font-size: var(--btn-md-font-size);
+  --btn-radius: var(--btn-md-radius);
+  --btn-gap: var(--btn-md-gap);
+}
+
+.btn-lg {
+  --btn-height: var(--btn-lg-height);
+  --btn-padding-x: var(--btn-lg-padding-x);
+  --btn-font-size: var(--btn-lg-font-size);
+  --btn-radius: var(--btn-lg-radius);
+  --btn-gap: var(--btn-lg-gap);
+}
+
+/* ===================
+   STATES
+   =================== */
+
+/* Disabled */
+.btn:disabled,
+.btn-disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Full width */
+.btn-full-width {
+  width: 100%;
+}
+
+/* Loading */
+.btn-loading {
+  position: relative;
+  cursor: wait;
+  color: transparent !important;
+}
+
+.btn-loading::after {
+  content: '';
+  position: absolute;
+  width: 1em;
+  height: 1em;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: btn-spin 0.75s linear infinite;
+  opacity: 1;
+}
+
+/* Restore color for spinner visibility */
+.btn-primary.btn-loading::after {
+  border-color: var(--btn-primary-text);
+  border-right-color: transparent;
+}
+
+.btn-secondary.btn-loading::after,
+.btn-ghost.btn-loading::after {
+  border-color: var(--btn-secondary-text);
+  border-right-color: transparent;
+}
+
+.btn-danger.btn-loading::after {
+  border-color: var(--btn-danger-text);
+  border-right-color: transparent;
+}
+
+@keyframes btn-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ===================
+   ICONS
+   =================== */
+
+.btn-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 1em;
+  height: 1em;
+}
+
+.btn-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Icon-only button */
+.btn-icon-only {
+  --btn-padding-x: 0;
+  aspect-ratio: 1;
+}
+
+/* ===================
+   BUTTON GROUP
+   =================== */
+
+.btn-group {
+  display: inline-flex;
+}
+
+.btn-group .btn {
+  border-radius: 0;
+}
+
+.btn-group .btn:first-child {
+  border-top-left-radius: var(--btn-radius, var(--btn-md-radius));
+  border-bottom-left-radius: var(--btn-radius, var(--btn-md-radius));
+}
+
+.btn-group .btn:last-child {
+  border-top-right-radius: var(--btn-radius, var(--btn-md-radius));
+  border-bottom-right-radius: var(--btn-radius, var(--btn-md-radius));
+}
+
+.btn-group .btn:not(:first-child) {
+  margin-left: -1px;
+}
+
+.btn-group .btn:hover,
+.btn-group .btn:focus {
+  z-index: 1;
+}
+
+/* ===================
+   REDUCED MOTION
+   =================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .btn {
+    transition-duration: 0.01ms;
+  }
+
+  .btn-loading::after {
+    animation-duration: 1.5s;
+  }
+}
+
+/* ===================
+   DARK MODE
+   =================== */
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --btn-secondary-bg-hover: var(--color-gray-800, #1f2937);
+    --btn-secondary-border: var(--color-gray-600, #4b5563);
+    --btn-secondary-border-hover: var(--color-gray-500, #6b7280);
+    --btn-secondary-text: var(--color-gray-100, #f3f4f6);
+
+    --btn-ghost-bg-hover: var(--color-gray-800, #1f2937);
+    --btn-ghost-text: var(--color-gray-300, #d1d5db);
+  }
+}
+
+/* ===================
+   HTML Usage Examples
+   ===================
+
+<!-- Basic -->
+<button class="btn btn-primary">Primary</button>
+<button class="btn btn-secondary">Secondary</button>
+<button class="btn btn-ghost">Ghost</button>
+<button class="btn btn-danger">Danger</button>
+
+<!-- Sizes -->
+<button class="btn btn-primary btn-sm">Small</button>
+<button class="btn btn-primary btn-md">Medium</button>
+<button class="btn btn-primary btn-lg">Large</button>
+
+<!-- States -->
+<button class="btn btn-primary" disabled>Disabled</button>
+<button class="btn btn-primary btn-loading">Loading</button>
+<button class="btn btn-primary btn-full-width">Full Width</button>
+
+<!-- With Icons -->
+<button class="btn btn-primary">
+  <span class="btn-icon">
+    <svg>...</svg>
+  </span>
+  Add Item
+</button>
+
+<!-- Icon Only -->
+<button class="btn btn-ghost btn-icon-only" aria-label="Settings">
+  <span class="btn-icon">
+    <svg>...</svg>
+  </span>
+</button>
+
+<!-- Link as Button -->
+<a href="/page" class="btn btn-primary">Go to Page</a>
+
+<!-- Button Group -->
+<div class="btn-group">
+  <button class="btn btn-secondary">Left</button>
+  <button class="btn btn-secondary">Middle</button>
+  <button class="btn btn-secondary">Right</button>
+</div>
+
+*/
