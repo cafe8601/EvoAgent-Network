@@ -10,9 +10,9 @@ from pathlib import Path
 from typing import Optional, List
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI, HTTPException, Query, BackgroundTasks
+from fastapi import FastAPI, HTTPException, Query, BackgroundTasks, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import StreamingResponse, FileResponse, HTMLResponse
+from fastapi.responses import StreamingResponse, FileResponse, HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
@@ -22,6 +22,24 @@ load_dotenv()
 from loguru import logger
 
 from haes import HybridAISystem, Config
+from haes.exceptions import (
+    HAESError,
+    SystemNotInitializedError,
+    RoutingError,
+    NoSkillMatchError,
+    SkillError,
+    AgentError,
+    LLMError,
+    LLMRateLimitError,
+    LLMTimeoutError,
+    RAGError,
+    SecurityError,
+    PromptInjectionError,
+    RateLimitExceededError,
+    FeedbackError,
+    NoRecentChatError,
+    PersistenceError,
+)
 from haes.llm import OpenAIClient
 from haes.observability.tracer import HAESTracer, get_tracer, SpanKind
 from haes.observability.metrics import MetricsCollector, get_metrics
@@ -155,6 +173,83 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+# ===============================
+# Global Exception Handlers
+# ===============================
+
+@app.exception_handler(HAESError)
+async def haes_error_handler(request: Request, exc: HAESError):
+    """HAES 커스텀 예외 핸들러"""
+    # 예외 타입별 HTTP 상태 코드 매핑
+    status_code_map = {
+        SystemNotInitializedError: 503,
+        NoSkillMatchError: 404,
+        RoutingError: 400,
+        SkillError: 404,
+        AgentError: 500,
+        LLMRateLimitError: 429,
+        LLMTimeoutError: 504,
+        LLMError: 502,
+        RAGError: 500,
+        PromptInjectionError: 403,
+        RateLimitExceededError: 429,
+        NoRecentChatError: 400,
+        FeedbackError: 400,
+        PersistenceError: 500,
+        SecurityError: 403,
+    }
+
+    status_code = 500  # 기본값
+    for error_type, code in status_code_map.items():
+        if isinstance(exc, error_type):
+            status_code = code
+            break
+
+    # 로깅
+    logger.error(f"HAES Error [{exc.code}]: {exc.message}", extra=exc.details)
+
+    # 모니터링 이벤트
+    if monitor:
+        monitor.emit_error(f"[{exc.code}] {exc.message}", str(exc.details))
+
+    return JSONResponse(
+        status_code=status_code,
+        content=exc.to_dict(),
+    )
+
+
+@app.exception_handler(ValueError)
+async def value_error_handler(request: Request, exc: ValueError):
+    """ValueError 핸들러"""
+    logger.warning(f"Validation error: {exc}")
+    return JSONResponse(
+        status_code=400,
+        content={
+            "error": "VALIDATION_ERROR",
+            "message": str(exc),
+            "details": {},
+        },
+    )
+
+
+@app.exception_handler(Exception)
+async def general_exception_handler(request: Request, exc: Exception):
+    """일반 예외 핸들러 (예상치 못한 오류)"""
+    logger.exception(f"Unexpected error: {exc}")
+
+    if monitor:
+        monitor.emit_error("Unexpected error", str(exc))
+
+    return JSONResponse(
+        status_code=500,
+        content={
+            "error": "INTERNAL_ERROR",
+            "message": "An unexpected error occurred",
+            "details": {"type": type(exc).__name__},
+        },
+    )
 
 
 # ===============================
